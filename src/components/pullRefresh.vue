@@ -28,8 +28,8 @@ export default {
       default: "没有更多了",
       type: [Number, String],
     },
-    pulling:{
-       required: false,
+    pulling: {
+      required: false,
       default: "正在加载",
       type: [Number, String],
     },
@@ -49,7 +49,7 @@ export default {
       distance: 0,
       send: false,
       timer: null,
-      textShow:'',
+      textShow: "",
     };
   },
   methods: {
@@ -58,27 +58,26 @@ export default {
       // 统一处理文字问题
       this.$nextTick(() => {
         this.getScrollHeight();
-        this.handleText()
+        this.handleText();
         this.send = false;
       });
     },
-    handleText(){
-      if(this.haveMoreData){
-        if(this.textShow===this.pulling){
-          this.textShow = this.pulltext
+    handleText() {
+      if (this.haveMoreData) {
+        if (this.textShow === this.pulling) {
+          this.textShow = this.pulltext;
         }
-      }else{
-        console.log('no more',this.textShow)
+      } else {
+        console.log("no more", this.textShow);
         this.textShow = this.nopulltext;
-          setTimeout(() => {
-            this.textShow = 0;
-          }, 1000);
+        setTimeout(() => {
+          this.textShow = 0;
+        }, 1000);
       }
-
     },
     touchmove() {
-      if(!this.haveMoreData){
-        return
+      if (!this.haveMoreData) {
+        return;
       }
       let pageY = event.touches[0].pageY;
       if (pageY - this.startTop > 10) {
@@ -105,22 +104,21 @@ export default {
       this.startTop = event.touches[0].pageY;
     },
     pullBottom() {
-      if(this.haveMoreData){
-this.textShow = this.pulling
-      this.$emit("pullBottom");
-      }else{
-        return
+      if (this.haveMoreData) {
+        this.textShow = this.pulling;
+        this.$emit("pullBottom");
+      } else {
+        return;
       }
-      
     },
     getScrollTop() {
       // 获取整体元素的移动距离
-      this.scrollTop = document.documentElement.scrollTop;
+      this.scrollTop = document.body.scrollTop;
       // console.log('scrollTop',this.scrollTop)
     },
     getScrollHeight() {
       // 获取上下文的整体高度
-      this.scrollHeight = document.documentElement.scrollHeight;
+      this.scrollHeight = document.body.scrollHeight;
     },
     getClientHeight() {
       // 获取视窗高度
@@ -138,44 +136,9 @@ this.textShow = this.pulling
         transform: this.distance ? `translate3d(0,${-this.distance}px, 0)` : "",
       };
     },
-    // textShow() {
-    //   return function(haveMoreData){
-
-    //   }
-    //   let result = 0
-    //   if(haveMoreData){
-    //     result =  this.pulltext
-    //   }else{
-    //     result = 0
-    //   }
-    //   return result;
-    // },
-  },
-  watch: {
-    // canScrollHeight(newVal){
-    //   // if(newVal<=0){
-    //   //   this.$el
-    //   // }
-    // }
-    // haveMoreData: {
-    //   handler(newVal, oldVal) {
-    //     if (newVal === oldVal) {
-    //       return;
-    //     }
-    //     if (newVal) {
-    //       this.textShow = this.pulltext;
-    //     } else {
-    //       this.textShow = this.nopulltext;
-    //       setTimeout(() => {
-    //         this.textShow = 0;
-    //       }, 1000);
-    //     }
-    //   },
-    //   immediate:true
-    // },
   },
   mounted() {
-    this.textShow = this.pulling
+    this.textShow = this.pulling;
     this.forceUpdate();
     this.getClientHeight();
     this.getScrollTop();
