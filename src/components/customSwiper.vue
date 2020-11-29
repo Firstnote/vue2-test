@@ -29,6 +29,10 @@ export default {
       type: [Number, String],
       default: 0,
     },
+    threshold: {
+      type: Number,
+      default: 80,
+    },
   },
   data() {
     return {
@@ -91,14 +95,14 @@ export default {
     endAction() {
       let moveX = this.distance - this.endX;
       this.duration = 200;
-      if (moveX > 100) {
+      if (moveX > threshold) {
         if (!this.direction) {
           return;
         }
 
         let moveResult = this.endX - this.interval;
         this.distance = moveResult;
-      } else if (moveX < -100) {
+      } else if (moveX < -threshold) {
         if (!this.direction) {
           return;
         }
