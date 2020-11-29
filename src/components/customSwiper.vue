@@ -94,20 +94,21 @@ export default {
     },
     endAction() {
       let moveX = this.distance - this.endX;
-      this.duration = 200;
       if (moveX > this.threshold) {
         if (!this.direction) {
           return;
         }
-
         let moveResult = this.endX - this.interval;
+        this.duration = 200;
         this.distance = moveResult;
       } else if (moveX < -this.threshold) {
         if (!this.direction) {
           return;
         }
+        this.duration = 200;
         this.distance = this.endX + this.interval;
       } else {
+        this.duration = 200;
         this.distance = this.endX;
       }
     },
