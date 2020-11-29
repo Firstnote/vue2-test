@@ -112,7 +112,10 @@ export default {
         this.distance = this.endX;
       }
     },
-    updateInterval() {
+    updateSwiper() {
+      this.items = this.swiperwrap.children.length;
+      this.clientWidth = this.swiperwrap.clientWidth;
+      this.scrollWidth = this.clientWidth * this.items;
       // 更新每次移动的距离
       this.interval = -this.scrollWidth / this.items;
     },
@@ -136,20 +139,20 @@ export default {
     swiperwrap() {
       return this.$refs.swiperwrap;
     },
-    items() {
-      // 子元素数量
-      return this.swiperwrap.children.length;
-    },
-    clientWidth() {
-      // 可视宽度
-      return this.swiperwrap.clientWidth;
-    },
-    scrollWidth() {
-      // 可用宽度
-      return (
-        this.swiperwrap.children[this.initialSwipe].clientWidth * this.items
-      );
-    },
+    // items() {
+    //   // 子元素数量
+    //   return this.swiperwrap.children.length;
+    // },
+    // clientWidth() {
+    //   // 可视宽度
+    //   return this.swiperwrap.clientWidth;
+    // },
+    // scrollWidth() {
+    //   // 可用宽度
+    //   return (
+    //     this.swiperwrap.children[this.initialSwipe].clientWidth * this.items
+    //   );
+    // },
     trackStyle() {
       // 动态样式
       return {
@@ -171,7 +174,7 @@ export default {
     },
   },
   mounted() {
-    this.updateInterval();
+    this.updateSwiper();
     this.initSwipe(0);
   },
   beforeDestroy() {
