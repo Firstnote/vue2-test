@@ -95,14 +95,14 @@ export default {
     endAction() {
       let moveX = this.distance - this.endX;
       this.duration = 200;
-      if (moveX > threshold) {
+      if (moveX > this.threshold) {
         if (!this.direction) {
           return;
         }
 
         let moveResult = this.endX - this.interval;
         this.distance = moveResult;
-      } else if (moveX < -threshold) {
+      } else if (moveX < -this.threshold) {
         if (!this.direction) {
           return;
         }
