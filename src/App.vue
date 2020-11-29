@@ -8,6 +8,7 @@
       class="father"
       @change="change"
       :initialSwipe="active"
+      @hasChanged="hasChanged"
     >
       <custom-item>
         <div class="wrap">
@@ -32,6 +33,25 @@
       </custom-item>
       <custom-item class="wrap"
         ><div class="a" ref="ref2">
+          <div
+            v-for="(item, index) in new Array(60).fill('scroll2')"
+            :key="index"
+          >
+            {{ item }}
+          </div>
+        </div>
+        <div class="b">
+          <div
+            class="b-1"
+            v-for="(item, index) in new Array(60).fill('scroll2')"
+            :key="index"
+          >
+            {{ item }}
+          </div>
+        </div>
+      </custom-item>
+      <custom-item class="wrap"
+        ><div class="a" ref="ref3">
           <div
             v-for="(item, index) in new Array(60).fill('scroll2')"
             :key="index"
@@ -76,12 +96,15 @@ export default {
     },
     test() {
       this.active = this.active === 1 ? 0 : 1;
-      console.log(this.active);
+    },
+    hasChanged(index) {
+      console.log(index);
     },
   },
   mounted() {
     this.$refs.swiper.bindEvent(this.$refs.ref1);
     this.$refs.swiper.bindEvent(this.$refs.ref2);
+    this.$refs.swiper.bindEvent(this.$refs.ref3);
   },
 };
 </script>

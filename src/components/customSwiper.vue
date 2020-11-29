@@ -39,6 +39,7 @@ export default {
       startTime: 0,
       refs: [],
       direction: true,
+      changedActive: 0,
     };
   },
   methods: {
@@ -50,7 +51,6 @@ export default {
       this.refs.push(ref);
     },
     moveJudge(num) {
-      console.log(num, this.scrollWidth + this.interval);
       if (num > 0 || -num > this.scrollWidth + this.interval) {
         return false;
       } else {
@@ -82,6 +82,10 @@ export default {
     touchend(event) {
       this.endAction(event);
       // 重置方向正确
+      this.changeTimer && clearTimeout(this.changeTimer);
+      this.changeTimer = setTimeout(() => {
+        this.changedActive = this.active;
+      }, this.duration);
       this.direction = true;
     },
     endAction() {
@@ -115,6 +119,9 @@ export default {
     change(newWal) {
       this.$emit("change", newWal);
     },
+    hasChanged(newWal) {
+      this.$emit("hasChanged", newWal);
+    },
   },
   computed: {
     active() {
@@ -146,11 +153,14 @@ export default {
   },
   watch: {
     initialSwipe(newWal) {
-      console.log(newWal);
+      this.changedActive = newWal;
       this.initSwipe(newWal);
     },
     active(newWal) {
       this.change(newWal);
+    },
+    changedActive(newWal) {
+      this.hasChanged(newWal);
     },
   },
   mounted() {
