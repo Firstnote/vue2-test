@@ -146,7 +146,9 @@ export default {
     },
     scrollWidth() {
       // 可用宽度
-      return this.swiperwrap.scrollWidth;
+      return (
+        this.swiperwrap.children[this.initialSwipe].clientWidth * this.items
+      );
     },
     trackStyle() {
       // 动态样式
